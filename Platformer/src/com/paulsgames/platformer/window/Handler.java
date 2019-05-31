@@ -35,16 +35,5 @@ public class Handler {
 	this.object.remove(object);
     }
     
-    public void createLevel() {
-	for (int yy = 0; yy < Game.HEIGHT+32; yy += 32) {
-	    addObject(new Block(0,yy,ObjectId.Block));
-	}
-	for (int xx = 0; xx < Game.WIDTH*2; xx += 32) {
-	    addObject(new Block(xx, Game.HEIGHT-32, ObjectId.Block));
-	}
-	for (int xx = 198; xx < Game.WIDTH-256; xx += 32) {
-	    addObject(new Block(xx, Game.HEIGHT-230, ObjectId.Block));
-	}
-	
-    }    
+  
 }

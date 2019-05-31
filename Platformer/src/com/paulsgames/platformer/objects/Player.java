@@ -8,6 +8,8 @@ import java.util.LinkedList;
 
 import com.paulsgames.platformer.framework.GameObject;
 import com.paulsgames.platformer.framework.ObjectId;
+import com.paulsgames.platformer.framework.Texture;
+import com.paulsgames.platformer.window.Game;
 import com.paulsgames.platformer.window.Handler;
 
 public class Player extends GameObject {
@@ -15,9 +17,10 @@ public class Player extends GameObject {
     private float width = 48, height = 96;
     private final float MAX_SPEED = 10;
 
-    private float gravity = 0.5f;
+    private float gravity = 0.3f;
 
     private Handler handler;
+    Texture tex = Game.getInstance();
 
     public Player(float x, float y, Handler handler, ObjectId id) {
 	super(x, y, id);

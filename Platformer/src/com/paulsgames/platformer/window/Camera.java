@@ -1,5 +1,7 @@
 package com.paulsgames.platformer.window;
 
+import com.paulsgames.platformer.framework.GameObject;
+
 public class Camera {
     private float x,y;
     
@@ -8,7 +10,9 @@ public class Camera {
 	this.y = y;
     }
     
-    
+    public void tick(GameObject player) {
+	x = -player.getX() + Game.WIDTH/2; // snap the camera to the player.
+    }
 
     public float getX() {
         return x;
