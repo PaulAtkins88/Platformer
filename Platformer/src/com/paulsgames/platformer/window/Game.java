@@ -6,13 +6,13 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.Random;
 
+import com.paulsgames.platformer.framework.KeyInput;
 import com.paulsgames.platformer.framework.ObjectId;
-import com.paulsgames.platformer.objects.Block;
 import com.paulsgames.platformer.objects.Player;
 
 /*
  * 
- *  
+ *  You are up to video 8 - you just implemented the code for collision around the player.
  * 
  */
 
@@ -21,18 +21,20 @@ public class Game extends Canvas implements Runnable {
     private static final long serialVersionUID = -6801280139600092644L;
     private boolean running = false;
     private Thread thread;
-    
-    public static int WIDTH,HEIGHT;
 
+    public static int WIDTH, HEIGHT;
+    
     Handler handler;
+    Camera cam;
     Random rand = new Random();
 
     private void init() {
 	WIDTH = getWidth();
 	HEIGHT = getHeight();
 	handler = new Handler();
-	handler.addObject(new Player(100, 100, ObjectId.Player));
+	handler.addObject(new Player(100, 100, handler, ObjectId.Player));
 	handler.createLevel();
+	this.addKeyListener(new KeyInput(handler));
     }
 
     public synchronized void start() {
@@ -75,7 +77,7 @@ public class Game extends Canvas implements Runnable {
 
 	    if (System.currentTimeMillis() - timer > 1000) {
 		timer += 1000;
-		System.out.println("FPS: " + frames + " TICKS: " + updates);
+		//System.out.println("FPS: " + frames + " TICKS: " + updates);
 		frames = 0;
 		updates = 0;
 	    }
@@ -110,7 +112,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     public static void main(String[] args) {
-	new Window(800, 600, "Platformer - tutorial by RealTutsGML - Coded/tweaked by paulatkins88", new Game());
+	new Window(1366, 768, "Platformer - tutorial by RealTutsGML - Coded/tweaked by paulatkins88", new Game());
     }
 
 }
