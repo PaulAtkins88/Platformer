@@ -27,7 +27,7 @@ public class KeyInput extends KeyAdapter {
 		    tempObject.setVelX(-5);
 		if (key == KeyEvent.VK_SPACE && !tempObject.isJumping()) { // turn off infinite jumping
 		    tempObject.setJumping(true);
-		    tempObject.setVelY(-10);
+		    tempObject.setVelY(-15);
 		}
 
 	    }

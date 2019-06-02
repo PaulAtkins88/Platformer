@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import com.paulsgames.platformer.framework.GameObject;
 import com.paulsgames.platformer.framework.ObjectId;
 import com.paulsgames.platformer.framework.Texture;
+import com.paulsgames.platformer.window.Animation;
 import com.paulsgames.platformer.window.Game;
 import com.paulsgames.platformer.window.Handler;
 
@@ -17,14 +18,20 @@ public class Player extends GameObject {
     private float width = 48, height = 96;
     private final float MAX_SPEED = 10;
 
-    private float gravity = 0.3f;
+    private float gravity = 0.5f;
 
     private Handler handler;
     Texture tex = Game.getInstance();
 
+    private Animation playerWalkRight,playerWalkLeft;
+
     public Player(float x, float y, Handler handler, ObjectId id) {
 	super(x, y, id);
 	this.handler = handler;
+	playerWalkRight = new Animation(5, tex.player[1], tex.player[2], tex.player[3], tex.player[4], tex.player[5],
+		tex.player[6]);
+	playerWalkLeft = new Animation(5, tex.player[7], tex.player[8], tex.player[9], tex.player[10], tex.player[11],
+		tex.player[12]);
     }
 
     public void tick(LinkedList<GameObject> object) {
@@ -38,6 +45,8 @@ public class Player extends GameObject {
 	    }
 	}
 	collision(object);
+
+	playerWalkRight.runAnimation();
     }
 
     private void collision(LinkedList<GameObject> object) {
@@ -45,26 +54,26 @@ public class Player extends GameObject {
 	    GameObject tempObject = handler.object.get(i);
 	    if (tempObject.getId() == ObjectId.Block) {
 		if (getBoundsTop().intersects(tempObject.getBounds())) {
-		    y = tempObject.getY()+ 32;
+		    y = tempObject.getY() + 32;
 		    velY = 0;
 		}
 		if (getBounds().intersects(tempObject.getBounds())) {
-		    y = tempObject.getY()- height;
+		    y = tempObject.getY() - height;
 		    velY = 0;
 		    falling = false;
 		    jumping = false;
 		} else {
 		    falling = true;
 		}
-		
+
 		// Right Collision
 		if (getBoundsRight().intersects(tempObject.getBounds())) {
 		    x = tempObject.getX() - width;
 		}
-		
+
 		// Left Collision
 		if (getBoundsLeft().intersects(tempObject.getBounds())) {
-		    x = tempObject.getX()+ 32;
+		    x = tempObject.getX() + 32;
 		}
 	    }
 	}
@@ -72,11 +81,13 @@ public class Player extends GameObject {
 
     public void render(Graphics g) {
 	g.setColor(Color.blue);
-	g.fillRect((int) x, (int) y, (int) width, (int) height);
-
-	Graphics2D g2d = (Graphics2D) g;
+	if (velX != 0)
+	    playerWalkRight.drawAnimation(g, (int) x, (int) y, 48, 96);	
+	else
+	    g.drawImage(tex.player[0], (int) x, (int) y, 48, 96, null);
 
 	// uncomment if you want to draw the collision boxes
+	// Graphics2D g2d = (Graphics2D) g;
 //	g.setColor(Color.green);
 //	g2d.draw(getBounds());
 //	g2d.draw(getBoundsRight());

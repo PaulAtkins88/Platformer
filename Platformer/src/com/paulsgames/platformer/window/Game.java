@@ -17,7 +17,7 @@ import com.paulsgames.platformer.objects.Player;
 
 /*
  * 
- *  You are up to video 8 - you just implemented the code for collision around the player.
+ *  You are up to video 15 at the start, you need to still fix player movement animation.
  * 
  */
 
@@ -29,7 +29,7 @@ public class Game extends Canvas implements Runnable {
 
     public static int WIDTH, HEIGHT;
 
-    private BufferedImage level = null;
+    private BufferedImage level = null, clouds = null;
 
     Handler handler;
     Camera cam;
@@ -42,6 +42,8 @@ public class Game extends Canvas implements Runnable {
 	tex = new Texture();
 	BufferedImageLoader loader = new BufferedImageLoader();
 	level = loader.loadImage(new File("res/level.png")); // loads level sprite sheet
+	clouds = loader.loadImage(new File("res/cloud.png"));
+	System.out.println("cloud width = " + clouds.getWidth());
 	handler = new Handler();
 	cam = new Camera(0, 0);
 	loadImageLevel(level);
@@ -119,11 +121,14 @@ public class Game extends Canvas implements Runnable {
 
 	/////////////////////////////////////////////////
 	// everything between the slashes is what is being drawn.
-	g.setColor(Color.black);
+	g.setColor(new Color(25,190,225));
 	g.fillRect(0, 0, getWidth(), getHeight());
+	
 	g2d.translate(cam.getX(), cam.getY()); // beginning of camera
 	// anything inside here gets affected by the camera
-
+	
+	for (int xx = 0; xx < clouds.getWidth() * 10; xx += clouds.getWidth()+(clouds.getWidth()*2))
+	    g.drawImage(clouds, xx, 50, this);
 	handler.render(g);
 
 	g2d.translate(-cam.getX(), -cam.getY()); // end of camera
