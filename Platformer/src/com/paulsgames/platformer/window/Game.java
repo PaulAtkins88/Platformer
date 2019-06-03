@@ -17,7 +17,7 @@ import com.paulsgames.platformer.objects.Player;
 
 /*
  * 
- *  You are up to video 15 at the start, you need to still fix player movement animation.
+ *  You are up to video 17 at start. You need to fix the bullets if you spawn too many there is an out of bounds exception. handle it.
  * 
  */
 

@@ -5,6 +5,9 @@ but I am still learning on the java game devel journey.
 As always feel free to contribute and comments are always welcome.
 ## [Link to tutorial playlist](https://www.youtube.com/playlist?list=PLWms45O3n--54U-22GDqKMRGlXROOZtMx)
 
+## 03/06/2019 - Bullets, Animation fixed up
+Added a bullet class when pressing 'e'. problem is when you spawn too many at once it creates an out of bound exception.. Needs fixing but i have to go to my real job!
+
 ## 02/06/2019 - Player animation, backgrounds, changed level a bit
 So I am still going through the video's and it is making sense to me, basically just adding functions on top of functions without breaking them. I stole the player sprite sheet from the tut because to be honest I am too tired to make one but I will make one which will not be as good as his but at least it will be my own. There are clouds now! I might add some different ones, maybe a sun or birds or something. its midnight. I am off to bed.
 

@@ -11,7 +11,7 @@ public abstract class GameObject {
     protected float velX = 0, velY = 0;
     protected boolean falling = true;
     protected boolean jumping = false;
-
+    protected int facing = 1;
 
     public GameObject(float x, float y, ObjectId id) {
 	this.x = x;
@@ -22,6 +22,7 @@ public abstract class GameObject {
     public abstract void tick(LinkedList<GameObject> object);
 
     public abstract void render(Graphics g);
+
     public abstract Rectangle getBounds();
 
     public float getX() {
@@ -53,23 +54,31 @@ public abstract class GameObject {
     }
 
     public boolean isFalling() {
-        return falling;
+	return falling;
     }
 
     public void setFalling(boolean falling) {
-        this.falling = falling;
+	this.falling = falling;
     }
 
     public boolean isJumping() {
-        return jumping;
+	return jumping;
     }
 
     public void setJumping(boolean jumping) {
-        this.jumping = jumping;
+	this.jumping = jumping;
     }
 
     public void setVelY(float velY) {
 	this.velY = velY;
+    }
+
+    public int getFacing() {
+	return facing;
+    }
+
+    public void setFacing(int facing) {
+	this.facing = facing;
     }
 
     public ObjectId getId() {

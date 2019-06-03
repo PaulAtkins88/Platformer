@@ -4,6 +4,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
 
+import com.paulsgames.platformer.objects.Bullet;
 import com.paulsgames.platformer.window.Handler;
 
 public class KeyInput extends KeyAdapter {
@@ -29,9 +30,12 @@ public class KeyInput extends KeyAdapter {
 		    tempObject.setJumping(true);
 		    tempObject.setVelY(-15);
 		}
+		if(key == KeyEvent.VK_E)
+		    handler.addObject(new Bullet(tempObject.getX()+15,tempObject.getY() + 48, ObjectId.Bullet,tempObject.getFacing() * 10));
 
 	    }
 	}
+	
 
     }
 

@@ -17,13 +17,14 @@ public class Player extends GameObject {
 
     private float width = 48, height = 96;
     private final float MAX_SPEED = 10;
+    // 1 = right, -1 =left
 
     private float gravity = 0.5f;
 
     private Handler handler;
     Texture tex = Game.getInstance();
 
-    private Animation playerWalkRight,playerWalkLeft;
+    private Animation playerWalkRight, playerWalkLeft, playerJumpRight, playerJumpLeft;
 
     public Player(float x, float y, Handler handler, ObjectId id) {
 	super(x, y, id);
@@ -32,11 +33,18 @@ public class Player extends GameObject {
 		tex.player[6]);
 	playerWalkLeft = new Animation(5, tex.player[7], tex.player[8], tex.player[9], tex.player[10], tex.player[11],
 		tex.player[12]);
+	playerJumpRight = new Animation(5, tex.player_jump[0], tex.player_jump[1], tex.player_jump[2]);
+	playerJumpLeft = new Animation(5, tex.player_jump[3], tex.player_jump[4], tex.player_jump[5]);
     }
 
     public void tick(LinkedList<GameObject> object) {
 	x += velX;
 	y += velY;
+
+	if (velX < 0)
+	    facing = -1; // facing left
+	else if (velX > 0)
+	    facing = 1; // facing right
 	if (falling || jumping) {
 	    velY += gravity;
 
@@ -47,6 +55,9 @@ public class Player extends GameObject {
 	collision(object);
 
 	playerWalkRight.runAnimation();
+	playerWalkLeft.runAnimation();
+	playerJumpRight.runAnimation();
+	playerJumpLeft.runAnimation();
     }
 
     private void collision(LinkedList<GameObject> object) {
@@ -81,10 +92,25 @@ public class Player extends GameObject {
 
     public void render(Graphics g) {
 	g.setColor(Color.blue);
-	if (velX != 0)
-	    playerWalkRight.drawAnimation(g, (int) x, (int) y, 48, 96);	
-	else
-	    g.drawImage(tex.player[0], (int) x, (int) y, 48, 96, null);
+	if (jumping) {
+	    if (facing == 1) {
+		playerJumpRight.drawAnimation(g, (int) x, (int) y, 48, 96);
+	    } else {
+		playerJumpLeft.drawAnimation(g, (int) x, (int) y, 48, 96);
+	    }
+	} else {
+	    if (velX != 0) { // draw animation because player is moving velX != 0
+		if (facing == 1)
+		    playerWalkRight.drawAnimation(g, (int) x, (int) y, 48, 96);
+		else
+		    playerWalkLeft.drawAnimation(g, (int) x, (int) y, 48, 96);
+	    } else { // draw idle sprite for playing left or right
+		if (facing == 1)
+		    g.drawImage(tex.player[0], (int) x, (int) y, 48, 96, null);
+		else
+		    g.drawImage(tex.player[13], (int) x, (int) y, 48, 96, null);
+	    }
+	}
 
 	// uncomment if you want to draw the collision boxes
 	// Graphics2D g2d = (Graphics2D) g;
